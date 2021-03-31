@@ -8,15 +8,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func AddDocker(c *gin.Context) {
+func OptDocker(c *gin.Context) {
 	dockerName := c.DefaultQuery("dockername", "")
-	dockerTag := c.DefaultQuery("dockertag", "")
-	cpus := c.DefaultQuery("cpus", "16")
-	mem := c.DefaultQuery("mem", "32G")
-	gpus := c.DefaultQuery("gpus", "")
-	ip := c.DefaultQuery("gpus", "")
-	homePath := c.DefaultQuery("homepath", "")
-
+	opt := c.DefaultQuery("dockername", "stop")
 	if dockerName == "" {
 		c.JSON(200, gin.H{
 			"success": false,
@@ -24,9 +18,7 @@ func AddDocker(c *gin.Context) {
 		})
 		return
 	}
-
-	cmdargs := fmt.Sprintf("-d --net=mcv --ip=%v --gpus=%v --cpus %v -m %v -v /%v:/mydata --name %v %v", ip, gpus, cpus, mem, homePath, dockerName, dockerTag)
-	cmd := exec.Command("docker", "run", cmdargs)
+	cmd := exec.Command("docker", opt, dockerName)
 	log.Println(cmd)
 	out, err := cmd.CombinedOutput()
 	if err != nil {

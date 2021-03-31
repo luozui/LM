@@ -12,7 +12,7 @@ func main() {
 	r.POST("/del", server.Del)
 
 	r.POST("/add_docker", server.AddDocker)
-	r.POST("/del_docker", server.DelDocker)
+	r.POST("/del_docker", server.OptDocker)
 	r.POST("/top_docker", server.TopDocker)
 	r.Run(":80")
 }
