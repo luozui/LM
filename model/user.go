@@ -16,4 +16,5 @@ type User struct {
 	Mem         string    `json:"mem"`
 	StartTime   time.Time `json:"starttime"`
 	EndTime     time.Time `json:"endtime"`
+	Status      int       `json:"status"`
 }

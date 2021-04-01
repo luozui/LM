@@ -10,7 +10,7 @@ import (
 
 func OptDocker(c *gin.Context) {
 	dockerName := c.DefaultPostForm("dockername", "")
-	opt := c.DefaultPostForm("dockername", "stop")
+	opt := c.DefaultPostForm("opt", "stop")
 	if dockerName == "" {
 		c.JSON(200, gin.H{
 			"success": false,
@@ -21,7 +21,7 @@ func OptDocker(c *gin.Context) {
 	cmd := exec.Command("docker", opt, dockerName)
 	log.Println(cmd)
 	out, err := cmd.CombinedOutput()
-	if err != nil {
+	if err == nil {
 		c.JSON(200, gin.H{
 			"success": true,
 			"msg":     string(out),

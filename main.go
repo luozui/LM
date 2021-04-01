@@ -11,10 +11,10 @@ func main() {
 	r := gin.Default()
 	r.GET("/", server.Index)
 	r.POST("/add", server.Add)
-	r.POST("/del", server.Del)
+	r.POST("/opt", server.Opt)
 
 	r.POST("/add_docker", server.AddDocker)
-	r.POST("/del_docker", server.OptDocker)
+	r.POST("/opt_docker", server.OptDocker)
 	r.POST("/top_docker", server.TopDocker)
 	r.Run(":8080")
 }

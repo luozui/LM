@@ -72,6 +72,7 @@ func adduser(dockerName, dockerTag, cpus, gpus, mem, ip, machineip, homePath, en
 			GPUs:        gpus,
 			Mem:         mem,
 			StartTime:   time.Now(),
+			Status:      1,
 			//EndTime     :,
 		}
 	}
@@ -85,7 +86,7 @@ func addLoad(ip, cpus, gpus, mem string) {
 	fmt.Sscanf(gpus, "%d,%d,%d,%d", &intgpus[0], &intgpus[1], &intgpus[2], &intgpus[3])
 	fmt.Sscanf(mem, "%d", &intmem)
 	num := 0
-	for i := range intgpus {
+	for _, i := range intgpus {
 		if i > 0 {
 			num++
 			db.Data.Machines[ip].Use[i]++
@@ -104,7 +105,7 @@ func delLoad(ip, cpus, gpus, mem string) {
 	fmt.Sscanf(gpus, "%d,%d,%d,%d", &intgpus[0], &intgpus[1], &intgpus[2], &intgpus[3])
 	fmt.Sscanf(mem, "%d", &intmem)
 	num := 0
-	for i := range intgpus {
+	for _, i := range intgpus {
 		if i > 0 {
 			num++
 			db.Data.Machines[ip].Use[i]--
