@@ -4,18 +4,19 @@ import (
 	"fmt"
 	"log"
 	"os/exec"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
 func AddDocker(c *gin.Context) {
-	dockerName := c.DefaultQuery("dockername", "")
-	dockerTag := c.DefaultQuery("dockertag", "")
-	cpus := c.DefaultQuery("cpus", "16")
-	mem := c.DefaultQuery("mem", "32G")
-	gpus := c.DefaultQuery("gpus", "")
-	ip := c.DefaultQuery("gpus", "")
-	homePath := c.DefaultQuery("homepath", "")
+	dockerName := c.DefaultPostForm("dockername", "")
+	dockerTag := c.DefaultPostForm("dockertag", "")
+	cpus := c.DefaultPostForm("cpus", "16")
+	mem := c.DefaultPostForm("mem", "32G")
+	gpus := c.DefaultPostForm("gpus", "")
+	ip := c.DefaultPostForm("ip", "")
+	homePath := c.DefaultPostForm("homepath", "")
 
 	if dockerName == "" {
 		c.JSON(200, gin.H{
@@ -25,11 +26,12 @@ func AddDocker(c *gin.Context) {
 		return
 	}
 
-	cmdargs := fmt.Sprintf("-d --net=mcv --ip=%v --gpus=%v --cpus %v -m %v -v /%v:/mydata --name %v %v", ip, gpus, cpus, mem, homePath, dockerName, dockerTag)
-	cmd := exec.Command("docker", "run", cmdargs)
+	cmdargs := fmt.Sprintf("run -d --net=mcv --ip=%v --gpus=%v --cpus %v -m %v -v /%v:/mydata --name %v %v", ip, gpus, cpus, mem, homePath, dockerName, dockerTag)
+	agrs := strings.Fields(strings.TrimSpace(cmdargs))
+	cmd := exec.Command("docker", agrs...)
 	log.Println(cmd)
 	out, err := cmd.CombinedOutput()
-	if err != nil {
+	if err == nil {
 		c.JSON(200, gin.H{
 			"success": true,
 			"msg":     string(out),
