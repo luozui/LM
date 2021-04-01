@@ -9,8 +9,7 @@ import (
 func main() {
 	db.Init()
 	r := gin.Default()
-	r.Static("/home", "./static")
-	//r.Static("", "./static")
+	r.StaticFile("/", "./static/index.html")
 	r.GET("/get", server.Index)
 	r.POST("/add", server.Add)
 	r.POST("/opt", server.Opt)
