@@ -1,6 +1,7 @@
 package server
 
 import (
+	"crypto/md5"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -27,6 +28,7 @@ func Add(c *gin.Context) {
 
 	names := c.DefaultPostForm("names", "")
 	description := c.DefaultPostForm("description", "")
+	password := string(md5.New().Sum([]byte(c.DefaultPostForm("password", ""))))
 
 	urlValues := url.Values{
 		"dockername": {dockerName},
@@ -38,6 +40,7 @@ func Add(c *gin.Context) {
 		"Machineip":  {machineip},
 		"homepath":   {homePath},
 		"token":      {db.Data.Token},
+		//"password":   {password},
 	}
 	// urlValues.Add("name", "zhaofan")
 	// urlValues.Add("age", "22")
@@ -53,13 +56,13 @@ func Add(c *gin.Context) {
 		})
 		return
 	}
-	adduser(dockerName, dockerTag, cpus, gpus, mem, ip, machineip, homePath, endtime, names, description)
+	adduser(dockerName, dockerTag, cpus, gpus, mem, ip, machineip, homePath, endtime, names, description, password)
 	addLoad(machineip, cpus, gpus, mem)
 	db.Write()
 	c.JSON(200, resp_)
 }
 
-func adduser(dockerName, dockerTag, cpus, gpus, mem, ip, machineip, homePath, endtime, names, description string) {
+func adduser(dockerName, dockerTag, cpus, gpus, mem, ip, machineip, homePath, endtime, names, description, password string) {
 	if db.Data.Users[dockerName] == nil {
 		db.Data.Users[dockerName] = &model.User{
 			DockerName:  dockerName,
@@ -73,6 +76,7 @@ func adduser(dockerName, dockerTag, cpus, gpus, mem, ip, machineip, homePath, en
 			Mem:         mem,
 			StartTime:   time.Now(),
 			Status:      1,
+			Password:    password,
 			//EndTime     :,
 		}
 	}

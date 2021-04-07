@@ -1,6 +1,7 @@
 package server
 
 import (
+	"crypto/md5"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -18,11 +19,20 @@ func Opt(c *gin.Context) {
 	opt := c.DefaultPostForm("opt", "")
 	names := c.DefaultPostForm("names", db.Data.Users[dockerName].Names)
 	description := c.DefaultPostForm("description", "")
+	password := c.DefaultPostForm("password", "")
 
 	urlValues := url.Values{
 		"dockername": {dockerName},
 		"opt":        {opt},
 		"token":      {db.Data.Token},
+	}
+
+	if string(md5.New().Sum([]byte(password))) != db.Data.Users[dockerName].Password {
+		c.JSON(200, gin.H{
+			"success": false,
+			"msg":     "passowrd error",
+		})
+		return
 	}
 
 	log.Println(dockerName, machineip, opt, names, description)
