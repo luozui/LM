@@ -28,7 +28,7 @@ func Add(c *gin.Context) {
 
 	names := c.DefaultPostForm("names", "")
 	description := c.DefaultPostForm("description", "")
-	password := string(md5.New().Sum([]byte(c.DefaultPostForm("password", ""))))
+	password := c.DefaultPostForm("password", "")
 
 	urlValues := url.Values{
 		"dockername": {dockerName},
@@ -40,7 +40,7 @@ func Add(c *gin.Context) {
 		"Machineip":  {machineip},
 		"homepath":   {homePath},
 		"token":      {db.Data.Token},
-		//"password":   {password},
+		"password":   {password},
 	}
 	// urlValues.Add("name", "zhaofan")
 	// urlValues.Add("age", "22")
@@ -57,7 +57,7 @@ func Add(c *gin.Context) {
 		db.Data.IP[ip] = false
 		return
 	}
-	adduser(dockerName, dockerTag, cpus, gpus, mem, ip, machineip, homePath, endtime, names, description, password)
+	adduser(dockerName, dockerTag, cpus, gpus, mem, ip, machineip, homePath, endtime, names, description, string(md5.New().Sum([]byte(password))))
 	addLoad(machineip, cpus, gpus, mem)
 	db.Write()
 	c.JSON(200, resp_)
