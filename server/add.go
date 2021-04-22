@@ -24,7 +24,7 @@ func Add(c *gin.Context) {
 	ip := getIP()
 	machineip := c.DefaultPostForm("machineip", "")
 	homePath := c.DefaultPostForm("homepath", "")
-	endtime := c.DefaultPostForm("endtime", "")
+	endtime := c.DefaultPostForm("endtime", "4")
 
 	names := c.DefaultPostForm("names", "")
 	description := c.DefaultPostForm("description", "")
@@ -64,6 +64,8 @@ func Add(c *gin.Context) {
 }
 
 func adduser(dockerName, dockerTag, cpus, gpus, mem, ip, machineip, homePath, endtime, names, description, password string) {
+	var et int64
+	fmt.Sscanf(endtime, "%d", &et)
 	if db.Data.Users[dockerName] == nil {
 		db.Data.Users[dockerName] = &model.User{
 			DockerName:  dockerName,
@@ -78,7 +80,7 @@ func adduser(dockerName, dockerTag, cpus, gpus, mem, ip, machineip, homePath, en
 			StartTime:   time.Now(),
 			Status:      1,
 			Password:    password,
-			//EndTime     :,
+			EndTime:     time.Now().Add(time.Duration(et * 1000000000 * 60)), // 小时
 		}
 	}
 }
