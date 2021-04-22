@@ -21,7 +21,7 @@ func Add(c *gin.Context) {
 	cpus := c.DefaultPostForm("cpus", "16")
 	mem := c.DefaultPostForm("mem", "32")
 	gpus := c.DefaultPostForm("gpus", "0")
-	ip := c.DefaultPostForm("ip", "")
+	ip := getIP()
 	machineip := c.DefaultPostForm("machineip", "")
 	homePath := c.DefaultPostForm("homepath", "")
 	endtime := c.DefaultPostForm("endtime", "")
@@ -54,6 +54,7 @@ func Add(c *gin.Context) {
 			"success": false,
 			"msg":     "resp error",
 		})
+		db.Data.IP[ip] = false
 		return
 	}
 	adduser(dockerName, dockerTag, cpus, gpus, mem, ip, machineip, homePath, endtime, names, description, password)
@@ -142,4 +143,14 @@ func getMinGpuLoadMachine() string {
 		}
 	}
 	return ip
+}
+
+func getIP() string {
+	for ip, use := range db.Data.IP {
+		if !use {
+			db.Data.IP[ip] = true
+			return ip
+		}
+	}
+	return "error"
 }

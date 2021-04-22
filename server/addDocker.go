@@ -26,7 +26,7 @@ func AddDocker(c *gin.Context) {
 		return
 	}
 
-	cmdargs := fmt.Sprintf("run -d --net=mcv --ip=%v --gpus=%v --cpus %v -m %v -v /%v:/mydata --name %v %v", ip, gpus, cpus, mem, homePath, dockerName, dockerTag)
+	cmdargs := fmt.Sprintf("run -d --restart=always --net=mcv --ip=%v --gpus=%v --cpus %v -m %v -v /%v:/notebooks --name lm_%v -e PASSWORD=\"gzdx\" -e PORT=\"80\" %v", ip, gpus, cpus, mem, homePath, dockerName, dockerTag)
 	agrs := strings.Fields(strings.TrimSpace(cmdargs))
 	cmd := exec.Command("docker", agrs...)
 	log.Println(cmd)
