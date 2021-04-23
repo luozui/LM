@@ -27,7 +27,11 @@ func AddDocker(c *gin.Context) {
 		return
 	}
 
-	filedata := fmt.Sprintf("#!/bin/bash\n nvidia-docker run -d --restart=always --net=mcv --ip=%v --gpus=%v --cpus=%v -m %v -v /lm_data/%v:/notebooks --name lm_%v -e PASSWORD=\"%v\" -e PORT=\"80\" %v", ip, gpus, cpus, mem, homePath, dockerName, password, dockerTag)
+	sgpus := ""
+	if len(gpus) > 0 {
+		sgpus = fmt.Sprintf("--gpus=%v", gpus)
+	}
+	filedata := fmt.Sprintf("#!/bin/bash\n docker run -d --restart=always --net=mcv --ip=%v %v --cpus=%v -m %v -v /lm_data/%v:/notebooks --name %v -e PASSWORD=\"%v\" -e PORT=\"80\" %v", ip, sgpus, cpus, mem, homePath, dockerName, password, dockerTag)
 	err := ioutil.WriteFile("run.sh", []byte(filedata), 0655)
 	if err != nil {
 		log.Println("load file error")
@@ -40,7 +44,7 @@ func AddDocker(c *gin.Context) {
 	// cmdargs := fmt.Sprintf("#!/bin/bash\n nvidia-docker run -d --restart=always --net=mcv --ip=%v --gpus=%v --cpus=%v -m %v -v /lm_data/%v:/notebooks --name lm_%v -e PASSWORD=\"gzdx\" -e PORT=\"80\" %v", ip, gpus, cpus, mem, homePath, dockerName, dockerTag)
 	// agrs := strings.Fields(strings.TrimSpace(cmdargs))
 	cmd := exec.Command("./run.sh")
-	log.Println(cmd)
+	log.Println(filedata)
 	err = cmd.Run()
 	if err == nil {
 		c.JSON(200, gin.H{

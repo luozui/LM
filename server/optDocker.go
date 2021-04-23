@@ -18,7 +18,7 @@ func OptDocker(c *gin.Context) {
 		})
 		return
 	}
-	cmd := exec.Command("docker", opt, "lm_"+dockerName)
+	cmd := exec.Command("docker", opt, dockerName)
 	log.Println(cmd)
 	out, err := cmd.CombinedOutput()
 	if err == nil {

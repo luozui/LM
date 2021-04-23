@@ -17,5 +17,5 @@ type User struct {
 	StartTime   time.Time `json:"starttime"`
 	EndTime     time.Time `json:"endtime"`
 	Status      int       `json:"status"`
-	Password    string    `json:"password"`
+	Password    []byte    `json:"password"`
 }
