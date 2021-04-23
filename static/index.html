@@ -8,7 +8,7 @@
 </head>
 <meta charset="UTF-8">
 
-<body class="bg-light">
+<body class="bg-light" style="font-size: 15px">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
@@ -22,20 +22,7 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="index.html">管理面板</a>
                 </li>
-                <!-- <li class="nav-item">
-                  <a class="nav-link" href="opt.html">管理</a>
-                </li> -->
             </ul>
-            <!-- <form class="d-flex">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link" href="login.html">登录</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="reg.html">注册</a>
-                </li>
-              </ul>
-            </form> -->
         </div>
     </div>
 </nav>
@@ -160,14 +147,6 @@
                 <label for="gpus" class="form-label">Gpus</label>
                 <input type="text" class="form-control" id="gpus" aria-describedby="Name" placeholder="输入使用的GPU号（0~3）例如:0,1；为空则不使用显卡">
             </div>
-<!--            <div class="mb-3">-->
-<!--                <label for="ip" class="form-label">IP</label>-->
-<!--                <input type="text" class="form-control" id="ip" aria-describedby="Name" value="172.22.103.97">-->
-<!--            </div>-->
-<!--            <div class="mb-3">-->
-<!--                <label for="homepath" class="form-label">Home path</label>-->
-<!--                <input type="text" class="form-control" id="homepath" aria-describedby="Name" value="httptest">-->
-<!--            </div>-->
             <div class="mb-3">
                 <label for="machineip" class="form-label">Machine IP</label>
                 <input type="text" class="form-control" id="machineip" aria-describedby="Name" value="172.22.103.6">
@@ -179,7 +158,6 @@
             <div class="mb-3">
                 <label for="Name" class="form-label">Name</label>
                 <input type="text" class="form-control" id="Name" aria-describedby="Name" placeholder="实验参与人员，例如：张三，李四">
-<!--                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>-->
             </div>
             <div class="mb-3">
                 <label for="inputPassword1" class="form-label">Password</label>
@@ -295,7 +273,6 @@
             function (data) {
                 if (data.success) {
                     console.log(data)
-                    // window.open(data.ip+'/lab');
                     window.location.href = 'http://'+data.ip+'/lab';
                 } else {
                     alert('error')
