@@ -1,72 +1,308 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>演示</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <title>演示</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 </head>
 <meta charset="UTF-8">
-<body>
 
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
-</table>
+<body class="bg-light">
 
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">人工智能与区块链实验室</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="index.html">管理面板</a>
+                </li>
+                <!-- <li class="nav-item">
+                  <a class="nav-link" href="opt.html">管理</a>
+                </li> -->
+            </ul>
+            <!-- <form class="d-flex">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link" href="login.html">登录</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="reg.html">注册</a>
+                </li>
+              </ul>
+            </form> -->
+        </div>
+    </div>
+</nav>
 
-<div class="input-group mb-3">
-    <span class="input-group-text" id="basic-addon1">@</span>
-    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-</div>
+<main class="container">
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <!-- <h6 class="border-bottom pb-2 mb-0">Recent updates</h6> -->
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">IP</th>
+                <th scope="col">GPU</th>
+                <th scope="col">CPU</th>
+                <th scope="col">Mem</th>
+            </tr>
+            </thead>
+            <tbody id="info">
+            <tr>
+                <th scope="row">172.22.103.6</th>
+                <td>1,0,0,0</td>
+                <td>32/96</td>
+                <td>128G</td>
+            </tr>
+            <tr>
+                <th scope="row">172.22.103.7</th>
+                <td>1,0,0,0</td>
+                <td>32/96</td>
+                <td>128G</td>
+            </tr>
+            <tr>
+                <th scope="row">172.22.103.8</th>
+                <td>1,0,0,0</td>
+                <td>32/96</td>
+                <td>128G</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <!-- <h6 class="border-bottom pb-2 mb-0">Recent updates</h6> -->
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">User</th>
+                <th scope="col">IP</th>
+                <th scope="col">CPU</th>
+                <th scope="col">GPU</th>
+                <th scope="col">Mem</th>
+                <th scope="col">使用者</th>
+                <th scope="col">描述</th>
+                <th scope="col">宿主IP</th>
+                <th scope="col">起始时间</th>
+                <th scope="col">结束时间</th>
+                <th scope="col">状态</th>
+                <th scope="col">操作</th>
+            </tr>
+            </thead>
+            <tbody id="used">
+            <tr>
+                <th scope="row">Json</th>
+                <td>172.22.103.91</td>
+                <td>16</td>
+                <td>1</td>
+                <td>32G</td>
+                <td>张三</td>
+                <td>图神经网络</td>
+                <td>172.22.103.6</td>
+                <td>12.5H</td>
+                <td>64H</td>
+                <td>stop start delete</td>
+            </tr>
+            <tr>
+                <th scope="row">Alice</th>
+                <td>172.22.103.92</td>
+                <td>16</td>
+                <td>1</td>
+                <td>32G</td>
+                <td>李四</td>
+                <td>强化学习</td>
+                <td>172.22.103.6</td>
+                <td>12.5H</td>
+                <td>64H</td>
+                <td>stop start delete</td>
+            </tr>
+            <tr>
+                <th scope="row">Wang</th>
+                <td>172.22.103.93</td>
+                <td>16</td>
+                <td>1</td>
+                <td>32G</td>
+                <td>王五</td>
+                <td>人工智能安全</td>
+                <td>172.22.103.6</td>
+                <td>12.5H</td>
+                <td>64H</td>
+                <td>stop start delete</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <form id="applyForm">
+            <div class="mb-3">
+                <label for="username" class="form-label">User name</label>
+                <input type="text" class="form-control" id="username" aria-describedby="Name" placeholder="请输入名字的英文字母">
+            </div>
+            <div class="mb-3">
+                <label for="dockertag" class="form-label">Docker tag</label>
+                <input type="text" class="form-control" id="dockertag" aria-describedby="Name" value="docker.io/wqael/notebooks:pytorch1.7.1-cuda11">
+            </div>
+            <div class="mb-3">
+                <label for="cpus" class="form-label">Cpus</label>
+                <input type="text" class="form-control" id="cpus" aria-describedby="Name" value="16">
+            </div>
+            <div class="mb-3">
+                <label for="mem" class="form-label">Memory</label>
+                <input type="text" class="form-control" id="mem" aria-describedby="Name" value="32G">
+            </div>
+            <div class="mb-3">
+                <label for="gpus" class="form-label">Gpus</label>
+                <input type="text" class="form-control" id="gpus" aria-describedby="Name" placeholder="输入使用的GPU号（0~3）例如:0,1；为空则不使用显卡">
+            </div>
+<!--            <div class="mb-3">-->
+<!--                <label for="ip" class="form-label">IP</label>-->
+<!--                <input type="text" class="form-control" id="ip" aria-describedby="Name" value="172.22.103.97">-->
+<!--            </div>-->
+<!--            <div class="mb-3">-->
+<!--                <label for="homepath" class="form-label">Home path</label>-->
+<!--                <input type="text" class="form-control" id="homepath" aria-describedby="Name" value="httptest">-->
+<!--            </div>-->
+            <div class="mb-3">
+                <label for="machineip" class="form-label">Machine IP</label>
+                <input type="text" class="form-control" id="machineip" aria-describedby="Name" value="172.22.103.6">
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <input type="text" class="form-control" id="description" aria-describedby="Name" placeholder="实验描述">
+            </div>
+            <div class="mb-3">
+                <label for="Name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="Name" aria-describedby="Name" placeholder="实验参与人员，例如：张三，李四">
+<!--                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>-->
+            </div>
+            <div class="mb-3">
+                <label for="inputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="inputPassword1" placeholder="资源管理密码">
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="button" class="btn btn-primary" id="apply">Submit</button>
+        </form>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 <script>
-    let url = './get' + location.search;
-    fetch(url)
-    .then(res => res.json())
-    .then((out) => {
-        if(out["title"]) {
-            x=document.getElementById("title_h1");
-            x.innerHTML=out["title"];
-        }
-        if(out["content"]) {
-            x=document.getElementById("content");
-            x.innerHTML=out["content"];
-        }
-        if(out["hostname"]) {
-            x=document.getElementById("hostname");
-            x.innerHTML="hostname: " + out["hostname"];
-        }
-        if(out["view_cnt"]) {
-            x=document.getElementById("view_cnt");
-            x.innerHTML="浏览量: " + out["view_cnt"];
-        }
-    })
-    .catch(err => { throw err });
-</script>
 
+    function operate(name, opt) {
+        var pwd = prompt('请输入密码')
+        $.post("http://172.22.103.6:8080/opt",
+            {
+                "dockername":name,
+                "opt":opt,
+                "password": pwd
+            },
+            function (data) {
+                console.log(data)
+                if (data.success) {
+                    alert('success')
+                } else {
+                    alert('error')
+                }
+                location.reload();
+            }, "json")
+    }
+
+    $.ajax({
+        url: "http://172.22.103.6:8080/get",
+        // url: "http://47.115.44.151:8989/get",
+        type: "GET",
+        dataType: "json",
+
+        success: function (data) {
+            var content = "";
+            $.each(data.machines, function (k, v) {
+                content +=
+                    "<tr>" +
+                    "<th scope=\"row\">" + v.ip + "</th>" +
+                    "<td>" + v.use.toString() + "</td>" +
+                    "<td>" + v.load[2] + "/96</td>" +
+                    "<td>" + v.load[3] + "G</td>" +
+                    "</tr>";
+
+
+                res = $("#info");
+                res.empty();
+                res.append(content);
+            });
+            content = "";
+            $.each(data.uses, function (k, v) {
+                content +=
+                    "<tr>" +
+                    "<th scope=\"row\">" + k + "</th>" +
+                    "<td><a target='_blank' href='http://"+v.ip +"/lab'>" + v.ip + "</a></td>" +
+                    "<td>" + v.cpus + "</td>" +
+                    "<td>" + v.gpus + "</td>" +
+                    "<td>" + v.mem + "</td>" +
+                    "<td>" + v.names + "</td>" +
+                    "<td>" + v.description + "</td>" +
+                    "<td>" + v.machineip + "</td>" +
+                    "<td>" + "".concat(v.starttime.substr(0, 19).split('T')) + "</td>" +
+                    "<td>" + "".concat(v.endtime.substr(0, 19).split('T')) + "</td>" +
+                    "<td>" + (v.status===1?"运行": "暂停") + "</td>" +
+                    // "<td>stop start delete</td>"+
+                    "<td>" +
+                        "<button type=\"button\" class=\"btn btn-outline-secondary btn-sm\" style=\"margin-left:9px\" onclick='operate(\""+k+"\",\"stop\")'>Stop</button>"+
+                        "<button type=\"button\" class=\"btn btn-outline-success btn-sm\" style=\"margin-left:9px\" onclick='operate(\""+k+"\",\"start\")'>Start</button>"+
+                        "<button type=\"button\" class=\"btn btn-outline-danger btn-sm\" style=\"margin-left:9px\" onclick='operate(\""+k+"\",\"rm\")'>Delete</button>"+
+                    "</td>"+
+                    "</tr>";
+
+
+                res = $("#used");
+                res.empty();
+                res.append(content);
+            });
+
+
+        }
+    });
+
+    $("#apply").click(function(e){
+        $.post("http://172.22.103.6:8080/add",
+            {
+                "dockername":$("#applyForm [id='username']").val(),
+                "dockertag":$("#applyForm [id='dockertag']").val(),
+                "cpus":$("#applyForm [id='cpus']").val(),
+                "mem":$("#applyForm [id='mem']").val(),
+                "gpus":$("#applyForm [id='gpus']").val(),
+                // "ip":$("#applyForm [id='ip']").val(),
+                "homepath":$("#applyForm [id='username']").val(),
+                "machineip":$("#applyForm [id='machineip']").val(),
+                "names": $("#applyForm [id='Name']").val(),
+                "description": $("#applyForm [id='description']").val(),
+                "password": $("#applyForm [id='inputPassword1']").val()
+            },
+            function (data) {
+                if (data.success) {
+                    console.log(data)
+                    // window.open(data.ip+'/lab');
+                    window.location.href = 'http://'+data.ip+'/lab';
+                } else {
+                    alert('error')
+                }
+            }, "json")
+    });
+</script>
 </body>
+
 </html>
