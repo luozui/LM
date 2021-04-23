@@ -22,12 +22,13 @@ func Opt(c *gin.Context) {
 	password := c.DefaultPostForm("password", "")
 
 	urlValues := url.Values{
-		"dockername": {dockerName},
+		"dockername": {"lm_" + dockerName},
 		"opt":        {opt},
 		"token":      {db.Data.Token},
 	}
 
-	if string(md5.New().Sum([]byte(password))) != db.Data.Users[dockerName].Password {
+	log.Println(md5.New().Sum([]byte(password)), db.Data.Users[dockerName].Password)
+	if string(md5.New().Sum([]byte(password))) != string(db.Data.Users[dockerName].Password) {
 		c.JSON(200, gin.H{
 			"success": false,
 			"msg":     "passowrd error",

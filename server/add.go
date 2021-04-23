@@ -20,7 +20,7 @@ func Add(c *gin.Context) {
 	dockerTag := c.DefaultPostForm("dockertag", "")
 	cpus := c.DefaultPostForm("cpus", "16")
 	mem := c.DefaultPostForm("mem", "32")
-	gpus := c.DefaultPostForm("gpus", "0")
+	gpus := c.DefaultPostForm("gpus", "")
 	ip := getIP()
 	machineip := c.DefaultPostForm("machineip", "")
 	homePath := c.DefaultPostForm("homepath", "")
@@ -31,14 +31,14 @@ func Add(c *gin.Context) {
 	password := c.DefaultPostForm("password", "")
 
 	urlValues := url.Values{
-		"dockername": {dockerName},
+		"dockername": {"lm_" + dockerName},
 		"dockertag":  {dockerTag},
 		"cpus":       {cpus},
 		"gpus":       {gpus},
 		"mem":        {mem},
 		"ip":         {ip},
 		"Machineip":  {machineip},
-		"homepath":   {homePath},
+		"homepath":   {"lm_" + homePath},
 		"token":      {db.Data.Token},
 		"password":   {password},
 	}
@@ -57,13 +57,13 @@ func Add(c *gin.Context) {
 		db.Data.IP[ip] = false
 		return
 	}
-	adduser(dockerName, dockerTag, cpus, gpus, mem, ip, machineip, homePath, endtime, names, description, string(md5.New().Sum([]byte(password))))
+	adduser(dockerName, dockerTag, cpus, gpus, mem, ip, machineip, homePath, endtime, names, description, md5.New().Sum([]byte(password)))
 	addLoad(machineip, cpus, gpus, mem)
 	db.Write()
 	c.JSON(200, resp_)
 }
 
-func adduser(dockerName, dockerTag, cpus, gpus, mem, ip, machineip, homePath, endtime, names, description, password string) {
+func adduser(dockerName, dockerTag, cpus, gpus, mem, ip, machineip, homePath, endtime, names, description string, password []byte) {
 	var et int64
 	fmt.Sscanf(endtime, "%d", &et)
 	if db.Data.Users[dockerName] == nil {
@@ -80,7 +80,7 @@ func adduser(dockerName, dockerTag, cpus, gpus, mem, ip, machineip, homePath, en
 			StartTime:   time.Now(),
 			Status:      1,
 			Password:    password,
-			EndTime:     time.Now().Add(time.Duration(et * 1000000000 * 60)), // 小时
+			EndTime:     time.Now().Add(time.Duration(et * 1000000000 * 60 * 60)), // 小时
 		}
 	}
 }
@@ -93,10 +93,12 @@ func addLoad(ip, cpus, gpus, mem string) {
 	fmt.Sscanf(gpus, "%d,%d,%d,%d", &intgpus[0], &intgpus[1], &intgpus[2], &intgpus[3])
 	fmt.Sscanf(mem, "%d", &intmem)
 	num := 0
-	for _, i := range intgpus {
-		if i > 0 {
-			num++
-			db.Data.Machines[ip].Use[i]++
+	if len(gpus) > 0 {
+		for _, i := range intgpus {
+			if i > -1 {
+				num++
+				db.Data.Machines[ip].Use[i]++
+			}
 		}
 	}
 	db.Data.Machines[ip].Load[1] += num
@@ -105,17 +107,19 @@ func addLoad(ip, cpus, gpus, mem string) {
 }
 
 func delLoad(ip, cpus, gpus, mem string) {
-	intgpus := [4]int{0, 0, 0, 0}
+	intgpus := [4]int{-1, -1, -1, -1}
 	var intcpus int
 	intmem := 16
 	fmt.Sscanf(cpus, "%d", &intcpus)
 	fmt.Sscanf(gpus, "%d,%d,%d,%d", &intgpus[0], &intgpus[1], &intgpus[2], &intgpus[3])
 	fmt.Sscanf(mem, "%d", &intmem)
 	num := 0
-	for _, i := range intgpus {
-		if i > 0 {
-			num++
-			db.Data.Machines[ip].Use[i]--
+	if len(gpus) > 0 {
+		for _, i := range intgpus {
+			if i > -1 {
+				num++
+				db.Data.Machines[ip].Use[i]--
+			}
 		}
 	}
 	db.Data.Machines[ip].Load[1] -= num
